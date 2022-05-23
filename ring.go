@@ -11,6 +11,7 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/cespare/xxhash/v2"
 	rendezvous "github.com/dgryski/go-rendezvous" //nolint
 
 	"github.com/farss/redis/v8/internal"
