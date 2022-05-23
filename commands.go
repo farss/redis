@@ -156,6 +156,7 @@ type Cmdable interface {
 	BitField(ctx context.Context, key string, args ...interface{}) *IntSliceCmd
 
 	Scan(ctx context.Context, cursor uint64, match string, count int64) *ScanCmd
+	KvScan(ctx context.Context, cursor string, match string, count int64) *KvScanCmd
 	ScanType(ctx context.Context, cursor uint64, match string, count int64, keyType string) *ScanCmd
 	SScan(ctx context.Context, key string, cursor uint64, match string, count int64) *ScanCmd
 	HScan(ctx context.Context, key string, cursor uint64, match string, count int64) *ScanCmd
@@ -1144,6 +1145,19 @@ func (c cmdable) Scan(ctx context.Context, cursor uint64, match string, count in
 		args = append(args, "count", count)
 	}
 	cmd := NewScanCmd(ctx, c, args...)
+	_ = c(ctx, cmd)
+	return cmd
+}
+
+func (c cmdable) KvScan(ctx context.Context, cursor string, match string, count int64) *KvScanCmd {
+	args := []interface{}{"scan", cursor}
+	if match != "" {
+		args = append(args, "match", match)
+	}
+	if count > 0 {
+		args = append(args, "count", count)
+	}
+	cmd := NewKvScanCmd(ctx, c, args...)
 	_ = c(ctx, cmd)
 	return cmd
 }
