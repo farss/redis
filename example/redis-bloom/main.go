@@ -3,9 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/farss/redis/v8"
 	"math/rand"
-
-	"github.com/go-redis/redis/v8"
 )
 
 func main() {

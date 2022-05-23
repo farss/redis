@@ -7,11 +7,6 @@ import (
 	"net"
 	"testing"
 	"time"
-
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-
-	"github.com/go-redis/redis/v8"
 )
 
 type redisHookError struct {

@@ -6,8 +6,6 @@ package fuzz
 import (
 	"context"
 	"time"
-
-	"github.com/go-redis/redis/v8"
 )
 
 var (

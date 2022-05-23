@@ -1,7 +1,7 @@
 # Redis client for Go
 
 ![build workflow](https://github.com/go-redis/redis/actions/workflows/build.yml/badge.svg)
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/go-redis/redis/v8)](https://pkg.go.dev/github.com/go-redis/redis/v8?tab=doc)
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/farss/redis/v8)](https://pkg.go.dev/github.com/farss/redis/v8?tab=doc)
 [![Documentation](https://img.shields.io/badge/redis-documentation-informational)](https://redis.uptrace.dev/)
 [![Chat](https://discordapp.com/api/guilds/752070105847955518/widget.png)](https://discord.gg/rWtp5Aj)
 
@@ -28,8 +28,8 @@ for your applications thanks to its per request pricing and low latency data.
 - [Documentation](https://redis.uptrace.dev)
 - [Discussions](https://github.com/go-redis/redis/discussions)
 - [Chat](https://discord.gg/rWtp5Aj)
-- [Reference](https://pkg.go.dev/github.com/go-redis/redis/v8?tab=doc)
-- [Examples](https://pkg.go.dev/github.com/go-redis/redis/v8?tab=doc#pkg-examples)
+- [Reference](https://pkg.go.dev/github.com/farss/redis/v8?tab=doc)
+- [Examples](https://pkg.go.dev/github.com/farss/redis/v8?tab=doc#pkg-examples)
 
 ## Ecosystem
 
@@ -66,7 +66,7 @@ go mod init github.com/my/repo
 And then install go-redis/v8 (note _v8_ in the import; omitting it is a popular mistake):
 
 ```shell
-go get github.com/go-redis/redis/v8
+go get github.com/farss/redis/v8
 ```
 
 ## Quickstart
@@ -74,7 +74,7 @@ go get github.com/go-redis/redis/v8
 ```go
 import (
     "context"
-    "github.com/go-redis/redis/v8"
+    "github.com/farss/redis/v8"
     "fmt"
 )
 

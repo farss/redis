@@ -3,10 +3,7 @@ package hashtag
 import (
 	"testing"
 
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-
-	"github.com/go-redis/redis/v8/internal/rand"
+	"github.com/farss/redis/v8/internal/rand"
 )
 
 func TestGinkgoSuite(t *testing.T) {

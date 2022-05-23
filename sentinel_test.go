@@ -2,11 +2,6 @@ package redis_test
 
 import (
 	"net"
-
-	. "github.com/onsi/ginkgo"
-	. "github.com/onsi/gomega"
-
-	"github.com/go-redis/redis/v8"
 )
 
 var _ = Describe("Sentinel", func() {

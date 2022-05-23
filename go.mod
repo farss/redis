@@ -1,15 +1,15 @@
-module github.com/go-redis/redis/v8
+module github.com/farss/redis/v8
 
 go 1.17
 
 require (
-	github.com/cespare/xxhash/v2 v2.1.2
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f
 	github.com/onsi/ginkgo v1.16.5
 	github.com/onsi/gomega v1.19.0
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
 	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect

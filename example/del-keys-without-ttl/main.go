@@ -4,8 +4,6 @@ import (
 	"context"
 	"fmt"
 	"sync"
-
-	"github.com/go-redis/redis/v8"
 )
 
 func main() {
