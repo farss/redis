@@ -48,18 +48,14 @@ func (cmd *KvScanCmd) Result() (keys []string, cursor string, err error) {
 	return cmd.page, cmd.cursor, cmd.err
 }
 
-func (cmd *KvScanCmd) KeyVal() (kvs map[string]string, cursor string, err error) {
-	kvs = make(map[string]string, len(cmd.page)/2)
-	for i := 0; i < len(cmd.page); i += 2 {
-		kvs[cmd.page[i]] = cmd.page[i+1]
-	}
-	return kvs, cmd.cursor, cmd.err
+type KeyValue struct {
+	Key   string
+	Value []byte
 }
 
-func (cmd *KvScanCmd) KeyValBytes() (kvs map[string][]byte, cursor string, err error) {
-	kvs = make(map[string][]byte, len(cmd.page)/2)
+func (cmd *KvScanCmd) KeyVal() (kvs []*KeyValue, cursor string, err error) {
 	for i := 0; i < len(cmd.page); i += 2 {
-		kvs[cmd.page[i]] = util.StringToBytes(cmd.page[i+1])
+		kvs = append(kvs, &KeyValue{Key: cmd.page[i], Value: util.StringToBytes(cmd.page[i+1])})
 	}
 	return kvs, cmd.cursor, cmd.err
 }
