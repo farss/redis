@@ -48,6 +48,22 @@ func (cmd *KvScanCmd) Result() (keys []string, cursor string, err error) {
 	return cmd.page, cmd.cursor, cmd.err
 }
 
+func (cmd *KvScanCmd) KeyVal() (kvs map[string]string, cursor string, err error) {
+	kvs = make(map[string]string, len(cmd.page)/2)
+	for i := 0; i < len(cmd.page); i += 2 {
+		kvs[cmd.page[i]] = cmd.page[i+1]
+	}
+	return kvs, cmd.cursor, cmd.err
+}
+
+func (cmd *KvScanCmd) KeyValBytes() (kvs map[string][]byte, cursor string, err error) {
+	kvs = make(map[string][]byte, len(cmd.page)/2)
+	for i := 0; i < len(cmd.page); i += 2 {
+		kvs[cmd.page[i]] = util.StringToBytes(cmd.page[i+1])
+	}
+	return kvs, cmd.cursor, cmd.err
+}
+
 func (cmd *KvScanCmd) String() string {
 	return cmdString(cmd, cmd.page)
 }
