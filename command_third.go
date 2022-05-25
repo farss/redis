@@ -4,7 +4,14 @@ import (
 	"context"
 	"fmt"
 	"github.com/farss/redis/v8/internal/proto"
+	"github.com/farss/redis/v8/internal/util"
 	"sync"
+)
+
+const (
+	ScanDefault  = 0
+	ScanIncluded = 1
+	ScanValue    = 2
 )
 
 type KvScanCmd struct {
@@ -158,4 +165,30 @@ func (it *KvScanIterator) Val() string {
 	}
 	it.mu.Unlock()
 	return v
+}
+
+func (it *KvScanIterator) KeyVal() (k string, v string) {
+	it.mu.Lock()
+	if it.cmd.Err() == nil && it.pos > 0 && it.pos <= len(it.cmd.page) {
+		k = it.cmd.page[it.pos-1]
+		it.pos++
+		if it.pos <= len(it.cmd.page) {
+			v = it.cmd.page[it.pos-1]
+		}
+	}
+	it.mu.Unlock()
+	return k, v
+}
+
+func (it *KvScanIterator) KeyValBytes() (k string, v []byte) {
+	it.mu.Lock()
+	if it.cmd.Err() == nil && it.pos > 0 && it.pos <= len(it.cmd.page) {
+		k = it.cmd.page[it.pos-1]
+		it.pos++
+		if it.pos <= len(it.cmd.page) {
+			v = util.StringToBytes(it.cmd.page[it.pos-1])
+		}
+	}
+	it.mu.Unlock()
+	return k, v
 }
