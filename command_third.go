@@ -80,7 +80,7 @@ func (cmd *KvScanCmd) readScanReply(r *proto.Reader) ([]string, string, error) {
 
 	for i := 0; i < n; i++ {
 		key, err := r.ReadString()
-		if err != nil {
+		if err != nil && err != Nil {
 			return nil, "", err
 		}
 		keys[i] = key
