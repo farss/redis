@@ -9,9 +9,9 @@ import (
 )
 
 const (
-	ScanDefault  = 0
-	ScanIncluded = 1
-	ScanValue    = 2
+	ScanDefault  = 0 // 默认 不包含 cursor 和 value
+	ScanIncluded = 1 // scan 的时候 key 包含 cursor
+	ScanValue    = 2 // scan 的时候返回 value
 )
 
 type KvScanCmd struct {
@@ -19,18 +19,20 @@ type KvScanCmd struct {
 
 	page   []string
 	cursor string
+	flag   int
 
 	process cmdable
 }
 
 var _ Cmder = (*KvScanCmd)(nil)
 
-func NewKvScanCmd(ctx context.Context, process cmdable, args ...interface{}) *KvScanCmd {
+func NewKvScanCmd(ctx context.Context, process cmdable, flag int, args ...interface{}) *KvScanCmd {
 	return &KvScanCmd{
 		baseCmd: baseCmd{
 			ctx:  ctx,
 			args: args,
 		},
+		flag:    flag,
 		process: process,
 	}
 }
@@ -54,6 +56,9 @@ type KeyValue struct {
 }
 
 func (cmd *KvScanCmd) KeyVal() (kvs []*KeyValue, cursor string, err error) {
+	if cmd.flag&ScanValue == 0 {
+		panic("don't support KeyVal as not scan value")
+	}
 	for i := 0; i < len(cmd.page); i += 2 {
 		kvs = append(kvs, &KeyValue{Key: cmd.page[i], Value: util.StringToBytes(cmd.page[i+1])})
 	}
@@ -180,6 +185,9 @@ func (it *KvScanIterator) Val() string {
 }
 
 func (it *KvScanIterator) KeyVal() (k string, v string) {
+	if it.cmd.flag&ScanValue == 0 {
+		panic("don't support KeyVal as not scan value")
+	}
 	it.mu.Lock()
 	if it.cmd.Err() == nil && it.pos > 0 && it.pos <= len(it.cmd.page) {
 		k = it.cmd.page[it.pos-1]
@@ -193,6 +201,9 @@ func (it *KvScanIterator) KeyVal() (k string, v string) {
 }
 
 func (it *KvScanIterator) KeyValBytes() (k string, v []byte) {
+	if it.cmd.flag&ScanValue == 0 {
+		panic("don't support KeyVal as not scan value")
+	}
 	it.mu.Lock()
 	if it.cmd.Err() == nil && it.pos > 0 && it.pos <= len(it.cmd.page) {
 		k = it.cmd.page[it.pos-1]

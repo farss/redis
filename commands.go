@@ -1160,7 +1160,7 @@ func (c cmdable) KvScan(ctx context.Context, cursor string, match string, count 
 	if flag > 0 {
 		args = append(args, "flag", flag)
 	}
-	cmd := NewKvScanCmd(ctx, c, args...)
+	cmd := NewKvScanCmd(ctx, c, flag, args...)
 	_ = c(ctx, cmd)
 	return cmd
 }

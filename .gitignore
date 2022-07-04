@@ -2,3 +2,4 @@
 testdata/*/
 .idea/
 vendor/
+go.sum
